@@ -103,14 +103,14 @@ int hash_db_init (hash_db_t *p_hash, unsigned int size, unsigned int key_len,
  } 
  int hash_db_add (hash_db_t *p_hash, const void *key, const void *value)
  {
- 	int idx = p_hash -> pfn_hash(key); 
+ 	int idx = p_hash -> pfn_hash(key); //get index via pfn_hash function
 	char *p_mem = (char *)malloc(sizeof(slist_node_t) + p_hash -> key_len + p_hash -> value_len);
 	if (p_mem == NULL) {
-	return -1;
+		return -1;
  	}
-	 memcpy(p_mem + sizeof(slist_node_t), key, p_hash -> key_len);
-	 memcpy(p_mem + sizeof(slist_node_t) + p_hash->key_len, value, p_hash->value_len); 
-	 return slist_add_head(&p_hash -> p_head[idx], (slist_node_t *)p_mem); 
+	 memcpy(p_mem + sizeof(slist_node_t), key, p_hash -> key_len);//storage to key[]
+	 memcpy(p_mem + sizeof(slist_node_t) + p_hash->key_len, value, p_hash->value_len); //storage the slist node
+	 return slist_add_head(&p_hash -> p_head[idx], (slist_node_t *)p_mem); //add to slist-head
  }
 
  struct _node_find_ctx {
